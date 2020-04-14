@@ -21,7 +21,7 @@ const routes = [
                 exact: true
             },
             {
-                path: '/admin/loginn',
+                path: '/admin/login',
                 component: AdminSignIn,
                 exact: true
             },
