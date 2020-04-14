@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox, notification } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import './RegisterForm.scss';
 import FormItem from 'antd/lib/form/FormItem';
@@ -9,8 +9,8 @@ export default function RegisterForm() {
     return (
         <Form className='register-form'>
             <Form.Item>
-                <Input 
-                    prefix={ <UserOutlined style = {{ color:'rgba(0,0,0,.25)'}}/> }
+                <Input
+                    prefix={<UserOutlined style={{ fontSize: '16px', color: 'rgba(0,0,0,.25)' }} />}
                     type='email'
                     name='email'
                     placeholder='Correo electronico'
@@ -18,8 +18,8 @@ export default function RegisterForm() {
                 />
             </Form.Item>
             <Form.Item>
-                <Input 
-                    prefix={ <UserOutlined style = {{ color:'rgba(0,0,0,.25)'}}/> }
+                <Input
+                    prefix={<LockOutlined style={{ fontSize: '16px', color: 'rgba(0,0,0,.25)' }} />}
                     type='password'
                     name='password'
                     placeholder='Contraseña'
@@ -27,8 +27,8 @@ export default function RegisterForm() {
                 />
             </Form.Item>
             <Form.Item>
-                <Input 
-                    prefix={ <UserOutlined style = {{ color:'rgba(0,0,0,.25)'}}/> }
+                <Input
+                    prefix={<LockOutlined style={{ fontSize: '16px', color: 'rgba(0,0,0,.25)' }} />}
                     type='password'
                     name='repeatPassword'
                     placeholder='Repetir Contraseña'
@@ -43,7 +43,7 @@ export default function RegisterForm() {
                 </Checkbox>
             </FormItem>
             <FormItem>
-                <Button htmlType='submit' className='register-form_buton'>
+                <Button htmlType='submit' className='register-form__button'>
                     Crear Cuenta
                 </Button>
             </FormItem>
