@@ -30,6 +30,6 @@ export function emailValidation(inputData) {
 
 function removeClassErrorSuccess(inputData) {
     inputData.classList.remove('success');
-    inputData.classList.remove('errror');
+    inputData.classList.remove('error');
 }
 
