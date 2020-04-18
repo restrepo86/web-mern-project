@@ -5,10 +5,13 @@ import { emailValidation, minLengthValidation } from '../../../utils/formValidat
 
 import './RegisterForm.scss';
 import FormItem from 'antd/lib/form/FormItem';
+import { signUpApi } from '../../../api/user';
 
 export default function RegisterForm() {
 
     const [inputValuesForm, setInputValuesForm] = useState({
+        name: '',
+        lastName: '',
         email: '',
         password: '',
         repeatPassword: '',
@@ -62,9 +65,8 @@ export default function RegisterForm() {
         }
     };
 
-    const registerForm = () => {
-        console.log(formValid);
-        const { email, password, repeatPassword, privacyPolicy } = formValid;
+    const registerForm = async() => {
+
         const passwordValue = inputValuesForm.password;
         const repeatPasswordValue = inputValuesForm.repeatPassword;
 
@@ -78,15 +80,72 @@ export default function RegisterForm() {
                     message: 'Las constraseñas tienen que ser iguales.'
                 });
             } else {
-                notification['success']({
-                    message: 'OK.'
-                });
+                const result = await signUpApi(inputValuesForm);
+                if (!result.ok) {
+                    notification['error']({
+                        message: result.message
+                    });
+                } else {
+                    notification['success']({
+                        message: result.message
+                    });
+                    resetForm();
+                }
+                
             }
         }
     };
 
+    const resetForm = () => {
+        const inputValues = document.getElementsByTagName('input');
+
+        for (let index = 0; index < inputValues.length; index++) {
+            inputValues[index].classList.remove('success');
+            inputValues[index].classList.remove('error');
+            
+        }
+
+        setInputValuesForm({
+            name: '',
+            lastName: '',
+            email: '',
+            password: '',
+            repeatPassword: '',
+            privacyPolicy: false
+        });
+
+        setFormValid({
+            email: false,
+            password: false,
+            repeatPassword: false,
+            privacyPolicy: false
+        });
+    };
+
     return (
         <Form className='register-form' onFinish={registerForm} onChange = { changeForm }>
+            <Form.Item>
+                <Input
+                    prefix={<UserOutlined style={{ fontSize: '16px', color: 'rgba(0,0,0,.25)' }} />}
+                    type='text'
+                    name='name'
+                    placeholder='Nombre'
+                    className='register-form__input'
+                    value={ inputValuesForm.name }
+                    onChange={ formValidation }
+                />
+            </Form.Item>
+            <Form.Item>
+                <Input
+                    prefix={<UserOutlined style={{ fontSize: '16px', color: 'rgba(0,0,0,.25)' }} />}
+                    type='text'
+                    name='lastName'
+                    placeholder='Apellidos'
+                    className='register-form__input'
+                    value={ inputValuesForm.lastName }
+                    onChange={ formValidation }
+                />
+            </Form.Item>
             <Form.Item>
                 <Input
                     prefix={<UserOutlined style={{ fontSize: '16px', color: 'rgba(0,0,0,.25)' }} />}
